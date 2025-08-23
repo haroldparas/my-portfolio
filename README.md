@@ -24,7 +24,7 @@ A **modern and responsive portfolio website** built with **React and Vite**, sty
 1. Clone the repository:  
    ```bash 
    git clone https://github.com/haroldparas/my-portfolio.git
-   cd portfolio-react
+   
 2. Install dependencies:
    ```bash
    npm install
