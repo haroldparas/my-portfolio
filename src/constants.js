@@ -73,7 +73,7 @@ export const SkillsInfo = [
         "Developed an automated parking system using YOLOv3 for real-time license plate detection and recognition, Implemented entry/exit monitoring with CCTV, a custom PH license plate dataset, and a web-based interface (Flask, Python, HTML/CSS, PHP) integrated with MySQL for vehicle and system management.",
       image: parkingLogo,
       tags: ["HTM","CSS", "PHP", "Python", "PHP", "Flask"],
-      github: "",
+      github: "https://github.com/haroldparas/Campus-Parking-Management-System",
       webapp: "",
     },
     {
@@ -83,8 +83,8 @@ export const SkillsInfo = [
         "A personal portfolio website built with HTML, CSS, and JavaScript, featuring a clean design and responsive layout to showcase projects and skills",
       image: simpleportLogo,
       tags: ["HTML", "CSS", "Javascript"],
-      github: "",
-      webapp: "",
+      github: "https://github.com/haroldparas/simple-portfolio",
+      webapp: "https://haroldparas.github.io/simple-portfolio/",
     },
     {
       id: 2,
@@ -93,8 +93,8 @@ export const SkillsInfo = [
         "A modern and responsive portfolio website built with React and Vite, styled using Tailwind CSS. Features include smooth animations with Framer Motion, typing effects, interactive toast notifications via React-Toastify, and EmailJS integration for seamless contact form functionality. Designed with clean UI, responsive layouts, and optimized performance to showcase projects and skills",
       image: reactportLogo,
       tags: ["HTML", "Tailwind/CSS", "Javascript", "ReactJs", "ViteJs"],
-      github: "",
-      webapp: "",
+      github: "https://github.com/haroldparas/my-portfolio",
+      webapp: "https://haroldparas.vercel.app/",
     },
     {
       id: 3,
@@ -103,8 +103,8 @@ export const SkillsInfo = [
         "Working digital calculator with a clean UI and all basic math operations, styled with CSS for the modern look and powered by JavaScript for interactivity",
       image: calcLogo,
       tags: ["HTML", "CSS", "Javascript"],
-      github: "",
-      webapp: "",
+      github: "https://github.com/haroldparas/Simple-Calculator-made-by-Javascript",
+      webapp: "https://haroldparas.github.io/Simple-Calculator-made-by-Javascript/",
     },
     {
       id: 4,
