@@ -10,6 +10,7 @@ A **modern and responsive portfolio website** built with **React and Vite**, sty
 - ⌨️ **Typing Effect** for dynamic hero section text  
 - 🔔 **React-Toastify Notifications** for form interaction feedback  
 - 📩 **EmailJS Integration** for direct email functionality in the contact form  
+- 🖼️ **Supabase Integration**: Project images are stored in a **Supabase public bucket** and fetched dynamically
 - 📱 **Fully Responsive** – works seamlessly on desktop, tablet, and mobile  
 
 ### 🛠️ Tech Stack  
