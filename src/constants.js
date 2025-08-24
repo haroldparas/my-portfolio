@@ -54,7 +54,7 @@ export const SkillsInfo = [
       { name: 'Php', logo: phpLogo },
       { name: 'Laravel', logo: laravelLogo },
       { name: 'Visual Basic', logo: visualbasicLogo },
-      { name: 'JavaScript', logo: javascriptLogo },
+     
     ],
   },
   {
