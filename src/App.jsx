@@ -7,10 +7,13 @@ import Contact from "./components/Contact/Contact";
 import Footer from "./components/Footer/Footer";
 import BlurBlob from "./components/BlurBlob";
 import { motion } from "framer-motion";
+import CustomCursor from "./components/CustomCursor"; // 👈 import here
 
 const App = () => {
   return (
-    <div className="bg-[#030213ff]">
+    <div className="bg-[#030213ff] cursor-none"> {/* 👈 disable default cursor */}
+      <CustomCursor /> {/* 👈 custom glowing cursor */}
+
       <BlurBlob
         position={{ top: "50%", left: "30%" }}
         size={{ width: "35%", height: "50%" }}
@@ -18,18 +21,14 @@ const App = () => {
       
       <div className="relative pt-20">
         <Navbar />
-
-        {/* About Section */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          viewport={{ once: true, amount: 0.1 }} 
+          viewport={{ once: true, amount: 0.1 }}
         >
           <About />
         </motion.div>
-
-        {/* Skills Section */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -38,8 +37,6 @@ const App = () => {
         >
           <Skills />
         </motion.div>
-
-        {/* Work Section */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -48,8 +45,6 @@ const App = () => {
         >
           <Work />
         </motion.div>
-
-        {/* Contact Section */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -58,8 +53,6 @@ const App = () => {
         >
           <Contact />
         </motion.div>
-
-        {/* Footer Section */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
