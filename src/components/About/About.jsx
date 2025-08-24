@@ -98,7 +98,9 @@ const About = () => {
             <img
               src={profileImage}
               alt="Harold Paras"
-              className="w-full h-full rounded-full object-cover drop-shadow-[0_0px_10px_rgba(130,69,236,0.5)]"
+              className="w-full h-full rounded-full object-cover 
+              p-[4px] bg-gradient-to-tr from-[#8245ec] to-[#3e3942] 
+              shadow-[0_0_30px_rgba(130,69,236,0.85)]"
             />
           </Tilt>
         </div>
