@@ -16,7 +16,8 @@ const Navbar = () => {
     const section = document.getElementById(id);
     if (section) {
       const navbarHeight = 0;
-      const sectionTop = section.getBoundingClientRect().top + window.scrollY - navbarHeight;
+      const sectionTop =
+        section.getBoundingClientRect().top + window.scrollY - navbarHeight;
       window.scrollTo({ top: sectionTop, behavior: "smooth" });
     }
   };
@@ -27,7 +28,9 @@ const Navbar = () => {
         <div className="flex justify-between items-center">
           <div className="text-white font-semibold text-lg cursor-pointer">
             <button
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              onClick={() =>
+                window.scrollTo({ top: 0, behavior: "smooth" })
+              }
               className="hover:text-gray-300 transition"
             >
               Harold Paras
@@ -40,7 +43,7 @@ const Navbar = () => {
               <li key={item.id}>
                 <button
                   onClick={() => handleMenuItemClick(item.id)}
-                  className="relative px-1 font-bold transition duration-300 text-gray-300 hover:text-[#8245ec]"
+                  className="relative px-1 font-bold transition duration-300 text-gray-300 hover:text-[#8245ec] transform hover:scale-110"
                 >
                   {item.label}
                   <span className="absolute left-0 bottom-0 h-0.5 w-full bg-[#8245ec] scale-x-0 origin-left transition-transform duration-300"></span>
@@ -66,9 +69,9 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Mobile Sidebar with Futuristic Design on Right Side */}
+      {/* Mobile Sidebar - Right Drawer */}
       {isOpen && (
-        <div className="fixed inset-0 bg-[#050414] bg-opacity-90 backdrop-blur-md flex flex-col items-center justify-center space-y-8 z-50 transition-all duration-300 ease-in-out w-1/2 right-0 transform translate-x-full">
+        <div className="fixed top-0 right-0 h-full w-2/3 sm:w-1/2 bg-[#050414] bg-opacity-95 backdrop-blur-md flex flex-col items-center justify-center space-y-8 z-40 shadow-2xl">
           {menuItems.map((item, index) => (
             <button
               key={item.id}
@@ -81,21 +84,6 @@ const Navbar = () => {
           ))}
         </div>
       )}
-
-      {/* Adding animation for opening/closing */}
-      <style jsx>{`
-        .animate-slideIn {
-          animation: slideIn 0.5s ease-in-out;
-        }
-        @keyframes slideIn {
-          0% {
-            transform: translateX(100%);
-          }
-          100% {
-            transform: translateX(0);
-          }
-        }
-      `}</style>
     </>
   );
 };
