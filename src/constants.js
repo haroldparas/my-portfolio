@@ -1,7 +1,7 @@
 // Skills Section Logo's
 import htmlLogo from './assets/tech_logo/html.png';
 import cssLogo from './assets/tech_logo/css.png';
-import sassLogo from './assets/tech_logo/sass.png';
+//import sassLogo from './assets/tech_logo/sass.png';
 import javascriptLogo from './assets/tech_logo/javascript.png';
 import reactjsLogo from './assets/tech_logo/reactjs.png';
 import nextjsLogo from './assets/tech_logo/nextjs.png';
@@ -11,10 +11,10 @@ import nodejsLogo from './assets/tech_logo/nodejs.png';
 import mysqlLogo from './assets/tech_logo/mysql.png';
 import pythonLogo from './assets/tech_logo/python.png';
 import postgreLogo from './assets/tech_logo/postgre.png';
-import csharpLogo from './assets/tech_logo/csharp.png';
+//import csharpLogo from './assets/tech_logo/csharp.png';
 import phpLogo from './assets/tech_logo/php.png';
 import laravelLogo from './assets/tech_logo/laravel.png';
-import visualbasicLogo from './assets/tech_logo/visualbasic.png';
+//import visualbasicLogo from './assets/tech_logo/visualbasic.png';
 
 
 // Project Section Logo's
@@ -30,7 +30,7 @@ export const SkillsInfo = [
     skills: [
       { name: 'HTML', logo: htmlLogo },
       { name: 'CSS', logo: cssLogo },
-      { name: 'SASS', logo: sassLogo },
+      //{ name: 'SASS', logo: sassLogo },
       { name: 'JavaScript', logo: javascriptLogo },
       { name: 'React JS', logo: reactjsLogo },
       { name: 'Next JS', logo: nextjsLogo },
@@ -50,10 +50,10 @@ export const SkillsInfo = [
     title: 'Languages',
     skills: [
       { name: 'Python', logo: pythonLogo },
-      { name: 'C-Sharp', logo: csharpLogo },
+      //{ name: 'C-Sharp', logo: csharpLogo },
       { name: 'Php', logo: phpLogo },
       { name: 'Laravel', logo: laravelLogo },
-      { name: 'Visual Basic', logo: visualbasicLogo },
+      //{ name: 'Visual Basic', logo: visualbasicLogo },
      
     ],
   },
