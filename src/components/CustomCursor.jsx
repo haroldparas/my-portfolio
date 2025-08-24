@@ -3,18 +3,35 @@ import React, { useEffect, useState } from "react";
 const CustomCursor = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [hovering, setHovering] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    // detect mobile by screen width or touch
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || "ontouchstart" in window);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) return; // skip event listeners on mobile
+
     const mouseMove = (e) => {
       setPosition({ x: e.clientX, y: e.clientY });
     };
 
-    // detect when hovering over clickable elements
     const mouseOver = (e) => {
       if (e.target.tagName === "A" || e.target.tagName === "BUTTON") {
         setHovering(true);
       }
     };
+
     const mouseOut = (e) => {
       if (e.target.tagName === "A" || e.target.tagName === "BUTTON") {
         setHovering(false);
@@ -30,7 +47,9 @@ const CustomCursor = () => {
       window.removeEventListener("mouseover", mouseOver);
       window.removeEventListener("mouseout", mouseOut);
     };
-  }, []);
+  }, [isMobile]);
+
+  if (isMobile) return null; // 🚀 don’t render at all on mobile
 
   return (
     <div
