@@ -33,7 +33,7 @@ const Navbar = () => {
             className="flex items-center space-x-2 text-white font-semibold text-lg cursor-pointer"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
-            <img src={logo} alt="logo" className="w-8 h-8 object-contain " />
+            <img src={logo} alt="logo" className="w-12 h-12 object-contain " />
           
           </div>
 
