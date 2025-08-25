@@ -5,6 +5,9 @@ import { FaRegCommentDots } from "react-icons/fa";
 import { FiUpload, FiSend } from "react-icons/fi";
 import supabase, { getFeedbackImageUrl } from "../../supabase";
 
+const SUPABASE_BUCKET_URL = "https://hgxuczfammhhiigsvavf.supabase.co/storage/v1/object/public/portfolio-assets/";
+export const getFeedbackImageUrl = (fileName) => `${SUPABASE_BUCKET_URL}${fileName}`;
+
 const Contact = () => {
   const form = useRef();
   const [isSent, setIsSent] = useState(false);
