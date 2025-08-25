@@ -1,8 +1,9 @@
+// src/components/Contact/Contact.jsx
 import React, { useRef, useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import { FaFacebookF, FaLinkedinIn, FaInstagram, FaGithub, FaTiktok, FaRegCommentDots } from "react-icons/fa";
 import { FiUpload, FiSend } from "react-icons/fi";
-import supabase from "../../supabase"; // make sure path is correct
+import supabase, { getPublicFeedbackImageUrl } from "../../supabase";
 
 const Contact = () => {
   const form = useRef();
@@ -23,12 +24,8 @@ const Contact = () => {
         .from("feedbacks")
         .select("*")
         .order("created_at", { ascending: false });
-
-      if (error) {
-        console.error("Error fetching feedbacks:", error);
-      } else {
-        setFeedbacks(data);
-      }
+      if (error) console.error("Error fetching feedbacks:", error);
+      else setFeedbacks(data);
     };
     fetchFeedbacks();
   }, []);
@@ -66,12 +63,13 @@ const Contact = () => {
     if (feedbackImage) {
       const fileExt = feedbackImage.name.split(".").pop();
       const fileName = `${Date.now()}.${fileExt}`;
+
       const { error: uploadError } = await supabase.storage
         .from("feedback-images")
         .upload(fileName, feedbackImage);
 
       if (!uploadError) {
-        imageUrl = `https://https://vjwyznmurjjgjgmdrlcm.supabase.co/storage/v1/object/public/feedback-images/${fileName}`;
+        imageUrl = getPublicFeedbackImageUrl(fileName);
       } else {
         console.error("Image upload error:", uploadError);
       }
@@ -87,23 +85,14 @@ const Contact = () => {
       return;
     }
 
-    // Add new feedback to state
-    const newFeedback = {
-      id: data[0].id,
-      name: feedbackName,
-      message: feedbackMessage,
-      image_url: imageUrl,
-    };
-    setFeedbacks([newFeedback, ...feedbacks]);
+    setFeedbacks([{ id: data[0].id, name: feedbackName, message: feedbackMessage, image_url: imageUrl }, ...feedbacks]);
 
-    // Reset form
     setFeedbackName("");
     setFeedbackMessage("");
     setFeedbackImage(null);
     setPreviewImage(null);
   };
 
-  // Image preview
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setFeedbackImage(file);
@@ -116,7 +105,6 @@ const Contact = () => {
 
   return (
     <section id="contact" className="relative py-32 px-[10vw] md:px-[7vw] lg:px-[15vw] font-sans bg-gradient-to-b from-[#0b0a14] to-[#1a172d]">
-      {/* Section Header */}
       <div className="text-center mb-20">
         <h2 className="text-4xl sm:text-5xl font-extrabold text-white tracking-wide animate-fadeInUp">
           Get in Touch & Feedback
@@ -139,14 +127,6 @@ const Contact = () => {
               Send Message
             </button>
           </form>
-
-          <div className="mt-8 flex justify-center space-x-6">
-            <a href="https://www.facebook.com/h.aroldparas29/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-600 transition text-2xl"><FaFacebookF /></a>
-            <a href="https://www.linkedin.com/in/harold-florence-paras/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-500 transition text-2xl"><FaLinkedinIn /></a>
-            <a href="https://www.instagram.com/rold.ig/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-pink-500 transition text-2xl"><FaInstagram /></a>
-            <a href="https://github.com/haroldparas" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gray-200 transition text-2xl"><FaGithub /></a>
-            <a href="https://www.tiktok.com/@h_aroldparas" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-black transition text-2xl"><FaTiktok /></a>
-          </div>
         </div>
 
         {/* Feedback Form */}
