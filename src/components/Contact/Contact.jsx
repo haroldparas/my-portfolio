@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import { FaFacebookF, FaLinkedinIn, FaInstagram, FaGithub, FaTiktok, FaRegCommentDots } from "react-icons/fa";
 import { FiUpload, FiSend } from "react-icons/fi";
-import supabase from "../../supabase"; // make sure path is correct
+import supabase from "../supabase"; // make sure path is correct
 
 const Contact = () => {
   const form = useRef();
