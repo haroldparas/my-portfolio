@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
+import logo from "../../assets/hplogo.png"; // adjust path based on folder
+
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,15 +28,13 @@ const Navbar = () => {
     <>
       <nav className="fixed top-0 left-0 w-full z-50 px-6 md:px-12 lg:px-20 py-4 bg-transparent backdrop-blur-md transition duration-300">
         <div className="flex justify-between items-center">
-          <div className="text-white font-semibold text-lg cursor-pointer">
-            <button
-              onClick={() =>
-                window.scrollTo({ top: 0, behavior: "smooth" })
-              }
-              className="hover:text-gray-300 transition"
-            >
-              Harold Paras
-            </button>
+          {/* Logo + Name */}
+          <div
+            className="flex items-center space-x-2 text-white font-semibold text-lg cursor-pointer"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
+            <img src={logo} alt="logo" className="w-8 h-8 object-contain " />
+          
           </div>
 
           {/* Desktop Menu */}
