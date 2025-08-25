@@ -1,14 +1,7 @@
 // src/components/Contact/Contact.jsx
 import React, { useRef, useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
-import {
-  FaFacebookF,
-  FaLinkedinIn,
-  FaInstagram,
-  FaGithub,
-  FaTiktok,
-  FaRegCommentDots,
-} from "react-icons/fa";
+import { FaRegCommentDots } from "react-icons/fa";
 import { FiUpload, FiSend } from "react-icons/fi";
 import supabase, { getPublicFeedbackImageUrl } from "../../supabase";
 
@@ -17,13 +10,14 @@ const Contact = () => {
   const [isSent, setIsSent] = useState(false);
   const [isError, setIsError] = useState(false);
 
+  // Feedback states
   const [feedbacks, setFeedbacks] = useState([]);
   const [feedbackName, setFeedbackName] = useState("");
   const [feedbackMessage, setFeedbackMessage] = useState("");
   const [feedbackImage, setFeedbackImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
 
-  // Fetch feedbacks
+  // Fetch existing feedbacks
   useEffect(() => {
     const fetchFeedbacks = async () => {
       const { data, error } = await supabase
@@ -37,7 +31,7 @@ const Contact = () => {
     fetchFeedbacks();
   }, []);
 
-  // Send contact email
+  // EmailJS handler
   const sendEmail = (e) => {
     e.preventDefault();
     emailjs
@@ -70,7 +64,7 @@ const Contact = () => {
     if (feedbackImage) {
       const fileExt = feedbackImage.name.split(".").pop();
       const fileName = `${Date.now()}.${fileExt}`;
-      const { data: uploadData, error: uploadError } = await supabase.storage
+      const { error: uploadError } = await supabase.storage
         .from("feedback-images")
         .upload(fileName, feedbackImage);
 
@@ -90,6 +84,7 @@ const Contact = () => {
 
     setFeedbacks([{ id: data[0].id, name: feedbackName, message: feedbackMessage, image_url: imageUrl }, ...feedbacks]);
 
+    // Reset form
     setFeedbackName("");
     setFeedbackMessage("");
     setFeedbackImage(null);
@@ -107,7 +102,7 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="relative py-32 px-[10vw] md:px-[7vw] lg:px-[15vw] font-sans bg-gradient-to-b from-[#0b0a14] to-[#1a172d]">
+    <section id="contact" className="py-32 px-[10vw] md:px-[7vw] lg:px-[15vw] font-sans bg-gradient-to-b from-[#0b0a14] to-[#1a172d]">
       <div className="text-center mb-20">
         <h2 className="text-4xl sm:text-5xl font-extrabold text-white tracking-wide animate-fadeInUp">
           Get in Touch & Feedback
@@ -119,21 +114,20 @@ const Contact = () => {
 
       <div className="grid md:grid-cols-2 gap-10">
         {/* Contact Form */}
-        <div className="bg-gradient-to-tr from-[#1a172d] to-[#0f0d21] p-8 rounded-3xl shadow-2xl border border-gray-700 hover:scale-105 transform transition duration-500">
+        <div className="bg-gradient-to-tr from-[#1a172d] to-[#0f0d21] p-8 rounded-3xl shadow-2xl border border-gray-700 hover:scale-105 transition transform">
           <form ref={form} onSubmit={sendEmail} className="flex flex-col space-y-5">
             <input type="text" name="user_name" placeholder="Your Name" required className="w-full p-4 rounded-xl bg-gray-900 text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500 transition" />
             <input type="email" name="user_email" placeholder="Your Email" required className="w-full p-4 rounded-xl bg-gray-900 text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500 transition" />
             <input type="text" name="subject" placeholder="Subject" required className="w-full p-4 rounded-xl bg-gray-900 text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500 transition" />
             <textarea name="message" placeholder="Message" rows="5" required className="w-full p-4 rounded-xl bg-gray-900 text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500 transition resize-none" />
             <button type="submit" className="flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-bold py-3 rounded-xl hover:scale-105 transition transform">
-              <FiSend className="text-lg" />
-              Send Message
+              <FiSend className="text-lg" /> Send Message
             </button>
           </form>
         </div>
 
         {/* Feedback Form */}
-        <div className="bg-gradient-to-tr from-[#1a172d] to-[#0f0d21] p-8 rounded-3xl shadow-2xl border border-gray-700 hover:scale-105 transform transition duration-500">
+        <div className="bg-gradient-to-tr from-[#1a172d] to-[#0f0d21] p-8 rounded-3xl shadow-2xl border border-gray-700 hover:scale-105 transition transform">
           <form onSubmit={handleFeedbackSubmit} className="flex flex-col space-y-5">
             <input type="text" placeholder="Enter Your Name" value={feedbackName} onChange={(e) => setFeedbackName(e.target.value)} required className="w-full p-4 rounded-xl bg-gray-900 text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-500 transition" />
             <textarea placeholder="Your Feedback" rows="4" value={feedbackMessage} onChange={(e) => setFeedbackMessage(e.target.value)} required className="w-full p-4 rounded-xl bg-gray-900 text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-500 transition resize-none" />
@@ -141,8 +135,7 @@ const Contact = () => {
             <div>
               <input type="file" accept="image/*" id="fileInput" onChange={handleImageChange} className="hidden" />
               <button type="button" onClick={() => document.getElementById("fileInput").click()} className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-pink-600 to-purple-500 text-white font-semibold py-3 rounded-xl hover:scale-105 transition transform shadow-md">
-                <FiUpload className="text-lg" />
-                Choose Profile Photo
+                <FiUpload className="text-lg" /> Choose Profile Photo
               </button>
             </div>
 
@@ -151,11 +144,11 @@ const Contact = () => {
             )}
 
             <button type="submit" className="bg-gradient-to-r from-pink-600 to-purple-500 text-white font-bold py-3 rounded-xl hover:scale-105 transition transform flex items-center justify-center gap-2">
-              <FaRegCommentDots className="text-lg" />
-              Post Feedback
+              <FaRegCommentDots className="text-lg" /> Post Feedback
             </button>
           </form>
 
+          {/* Feedback List */}
           <div className="mt-8 max-h-64 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gradient scrollbar-track-transparent rounded-2xl bg-black/30 backdrop-blur-md shadow-inner p-2 space-y-4">
             {feedbacks.length === 0 ? (
               <p className="text-gray-400 text-center">No feedback yet. Be the first!</p>
@@ -187,7 +180,6 @@ const Contact = () => {
           </div>
         </div>
       )}
-
       {isError && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
           <div className="bg-red-700 text-white p-8 rounded-2xl shadow-2xl">
