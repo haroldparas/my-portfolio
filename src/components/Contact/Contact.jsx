@@ -138,6 +138,7 @@ const Contact = () => {
               value={feedbackName}
               onChange={(e) => setFeedbackName(e.target.value)}
               required
+               maxLength={10} 
               className="w-full p-4 rounded-xl bg-gray-900 text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-500 transition"
             />
             <textarea
@@ -146,6 +147,7 @@ const Contact = () => {
               value={feedbackMessage}
               onChange={(e) => setFeedbackMessage(e.target.value)}
               required
+              maxLength={10} 
               className="w-full p-4 rounded-xl bg-gray-900 text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-500 transition resize-none"
             />
             <button
