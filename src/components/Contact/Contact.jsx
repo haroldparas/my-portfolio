@@ -71,7 +71,7 @@ const Contact = () => {
         .upload(fileName, feedbackImage);
 
       if (!uploadError) {
-        imageUrl = `https://YOUR_PROJECT_REF.supabase.co/storage/v1/object/public/feedback-images/${fileName}`;
+        imageUrl = `https://hgxuczfammhhiigsvavf.supabase.co/storage/v1/object/public/feedback-images/${fileName}`;
       } else {
         console.error("Image upload error:", uploadError);
       }
