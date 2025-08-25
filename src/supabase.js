@@ -12,7 +12,5 @@ export default supabase;
 export const getPublicPortfolioImageUrl = (fileName) =>
   `${supabaseUrl}/storage/v1/object/public/portfolio-assets/${fileName}`;
 
-// For feedback images
-export const getPublicFeedbackImageUrl = (fileName) =>
-  `${supabaseUrl}/storage/v1/object/public/portfolio-assets/${fileName}`;
+
 
