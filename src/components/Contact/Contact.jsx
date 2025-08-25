@@ -3,29 +3,29 @@ import React, { useRef, useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import { FaRegCommentDots } from "react-icons/fa";
 import { FiUpload, FiSend } from "react-icons/fi";
-import supabase, { getFeedbackImageUrl } from "../../supabase";
-
-const SUPABASE_BUCKET_URL = "https://hgxuczfammhhiigsvavf.supabase.co/storage/v1/object/public/portfolio-assets/";
-export const getFeedbackImageUrl = (fileName) => `${SUPABASE_BUCKET_URL}${fileName}`;
+import supabase from "../../supabase"; // your helper should export the client
+import { getFeedbackImageUrl } from "../../supabase"; // helper for generating public URLs
 
 const Contact = () => {
   const form = useRef();
   const [isSent, setIsSent] = useState(false);
   const [isError, setIsError] = useState(false);
 
+  // Feedback states
   const [feedbacks, setFeedbacks] = useState([]);
   const [feedbackName, setFeedbackName] = useState("");
   const [feedbackMessage, setFeedbackMessage] = useState("");
   const [feedbackImage, setFeedbackImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
 
-  // Fetch feedbacks
+  // Fetch feedbacks on mount
   useEffect(() => {
     const fetchFeedbacks = async () => {
       const { data, error } = await supabase
         .from("feedbacks")
         .select("*")
         .order("created_at", { ascending: false });
+
       if (error) console.error("Error fetching feedbacks:", error.message);
       else setFeedbacks(data);
     };
@@ -122,7 +122,8 @@ const Contact = () => {
             <input type="text" name="subject" placeholder="Subject" required className="w-full p-4 rounded-xl bg-gray-900 text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500 transition" />
             <textarea name="message" placeholder="Message" rows="5" required className="w-full p-4 rounded-xl bg-gray-900 text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500 transition resize-none" />
             <button type="submit" className="flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-bold py-3 rounded-xl hover:scale-105 transition transform">
-              <FiSend className="text-lg" /> Send Message
+              <FiSend className="text-lg" />
+              Send Message
             </button>
           </form>
         </div>
@@ -136,14 +137,18 @@ const Contact = () => {
             <div>
               <input type="file" accept="image/*" id="fileInput" onChange={handleImageChange} className="hidden" />
               <button type="button" onClick={() => document.getElementById("fileInput").click()} className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-pink-600 to-purple-500 text-white font-semibold py-3 rounded-xl hover:scale-105 transition transform shadow-md">
-                <FiUpload className="text-lg" /> Choose Profile Photo
+                <FiUpload className="text-lg" />
+                Choose Profile Photo
               </button>
             </div>
 
-            {previewImage && <img src={previewImage} alt="preview" className="w-20 h-20 object-cover rounded-full mt-3 border-2 border-purple-500 shadow-lg" />}
+            {previewImage && (
+              <img src={previewImage} alt="preview" className="w-20 h-20 object-cover rounded-full mt-3 border-2 border-purple-500 shadow-lg" />
+            )}
 
             <button type="submit" className="bg-gradient-to-r from-pink-600 to-purple-500 text-white font-bold py-3 rounded-xl hover:scale-105 transition transform flex items-center justify-center gap-2">
-              <FaRegCommentDots className="text-lg" /> Post Feedback
+              <FaRegCommentDots className="text-lg" />
+              Post Feedback
             </button>
           </form>
 
@@ -170,8 +175,23 @@ const Contact = () => {
       </div>
 
       {/* Popups */}
-      {isSent && <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70"><div className="bg-purple-900 text-white p-8 rounded-2xl shadow-2xl"><h3 className="text-2xl font-bold mb-2">Message Sent!</h3><p>Your email has been successfully sent. I’ll get back to you soon. 😊</p></div></div>}
-      {isError && <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70"><div className="bg-red-700 text-white p-8 rounded-2xl shadow-2xl"><h3 className="text-2xl font-bold mb-2">Oops!</h3><p>Failed to send your message. Please try again later.</p></div></div>}
+      {isSent && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
+          <div className="bg-purple-900 text-white p-8 rounded-2xl shadow-2xl">
+            <h3 className="text-2xl font-bold mb-2">Message Sent!</h3>
+            <p>Your email has been successfully sent. I’ll get back to you soon. 😊</p>
+          </div>
+        </div>
+      )}
+
+      {isError && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
+          <div className="bg-red-700 text-white p-8 rounded-2xl shadow-2xl">
+            <h3 className="text-2xl font-bold mb-2">Oops!</h3>
+            <p>Failed to send your message. Please try again later.</p>
+          </div>
+        </div>
+      )}
 
       <style jsx>{`
         .animate-fadeInUp { animation: fadeInUp 0.6s forwards; }
