@@ -73,7 +73,7 @@ const Navbar = () => {
 
       {/* Mobile Sidebar - Right Drawer */}
       {isOpen && (
-        <div className="fixed top-0 right-0 h-full w-2 sm:w-1/2 bg-[#050414] bg-opacity-95 backdrop-blur-md flex flex-col items-center justify-center space-y-8 z-40 shadow-2xl">
+        <div className="fixed top-0 right-0 h-full w-2/2 sm:w-1/2 bg-[#050414] bg-opacity-95 backdrop-blur-md flex flex-col items-center justify-center space-y-8 z-40 shadow-2xl">
           {menuItems.map((item, index) => (
             <button
               key={item.id}
