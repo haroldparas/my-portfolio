@@ -1,7 +1,14 @@
 // src/components/Contact/Contact.jsx
 import React, { useRef, useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
-import { FaFacebookF, FaLinkedinIn, FaInstagram, FaGithub, FaTiktok, FaRegCommentDots } from "react-icons/fa";
+import {
+  FaFacebookF,
+  FaLinkedinIn,
+  FaInstagram,
+  FaGithub,
+  FaTiktok,
+  FaRegCommentDots,
+} from "react-icons/fa";
 import { FiUpload, FiSend } from "react-icons/fi";
 import supabase, { getPublicFeedbackImageUrl } from "../../supabase";
 
@@ -10,27 +17,27 @@ const Contact = () => {
   const [isSent, setIsSent] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  // Feedback states
   const [feedbacks, setFeedbacks] = useState([]);
   const [feedbackName, setFeedbackName] = useState("");
   const [feedbackMessage, setFeedbackMessage] = useState("");
   const [feedbackImage, setFeedbackImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
 
-  // Fetch existing feedbacks
+  // Fetch feedbacks
   useEffect(() => {
     const fetchFeedbacks = async () => {
       const { data, error } = await supabase
         .from("feedbacks")
         .select("*")
         .order("created_at", { ascending: false });
-      if (error) console.error("Error fetching feedbacks:", error);
+
+      if (error) console.error("Error fetching feedbacks:", error.message);
       else setFeedbacks(data);
     };
     fetchFeedbacks();
   }, []);
 
-  // EmailJS handler
+  // Send contact email
   const sendEmail = (e) => {
     e.preventDefault();
     emailjs
@@ -53,7 +60,7 @@ const Contact = () => {
       );
   };
 
-  // Feedback submit
+  // Handle feedback submit
   const handleFeedbackSubmit = async (e) => {
     e.preventDefault();
     if (!feedbackName || !feedbackMessage) return;
@@ -63,16 +70,12 @@ const Contact = () => {
     if (feedbackImage) {
       const fileExt = feedbackImage.name.split(".").pop();
       const fileName = `${Date.now()}.${fileExt}`;
-
-      const { error: uploadError } = await supabase.storage
+      const { data: uploadData, error: uploadError } = await supabase.storage
         .from("feedback-images")
         .upload(fileName, feedbackImage);
 
-      if (!uploadError) {
-        imageUrl = getPublicFeedbackImageUrl(fileName);
-      } else {
-        console.error("Image upload error:", uploadError);
-      }
+      if (uploadError) console.error("Image upload error:", uploadError.message);
+      else imageUrl = getPublicFeedbackImageUrl(fileName);
     }
 
     const { data, error } = await supabase
@@ -81,7 +84,7 @@ const Contact = () => {
       .select();
 
     if (error) {
-      console.error("Error saving feedback:", error);
+      console.error("Error saving feedback:", error.message);
       return;
     }
 
@@ -116,28 +119,28 @@ const Contact = () => {
 
       <div className="grid md:grid-cols-2 gap-10">
         {/* Contact Form */}
-        <div className="bg-gradient-to-tr from-[#1a172d] to-[#0f0d21] p-8 rounded-3xl shadow-2xl border border-gray-700 transform transition duration-500 hover:scale-105">
+        <div className="bg-gradient-to-tr from-[#1a172d] to-[#0f0d21] p-8 rounded-3xl shadow-2xl border border-gray-700 hover:scale-105 transform transition duration-500">
           <form ref={form} onSubmit={sendEmail} className="flex flex-col space-y-5">
             <input type="text" name="user_name" placeholder="Your Name" required className="w-full p-4 rounded-xl bg-gray-900 text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500 transition" />
             <input type="email" name="user_email" placeholder="Your Email" required className="w-full p-4 rounded-xl bg-gray-900 text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500 transition" />
             <input type="text" name="subject" placeholder="Subject" required className="w-full p-4 rounded-xl bg-gray-900 text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500 transition" />
             <textarea name="message" placeholder="Message" rows="5" required className="w-full p-4 rounded-xl bg-gray-900 text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500 transition resize-none" />
             <button type="submit" className="flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-bold py-3 rounded-xl hover:scale-105 transition transform">
-              <FiSend className="text-lg group-hover:translate-x-1 transition-transform" />
+              <FiSend className="text-lg" />
               Send Message
             </button>
           </form>
         </div>
 
         {/* Feedback Form */}
-        <div className="bg-gradient-to-tr from-[#1a172d] to-[#0f0d21] p-8 rounded-3xl shadow-2xl border border-gray-700 transform transition duration-500 hover:scale-105">
+        <div className="bg-gradient-to-tr from-[#1a172d] to-[#0f0d21] p-8 rounded-3xl shadow-2xl border border-gray-700 hover:scale-105 transform transition duration-500">
           <form onSubmit={handleFeedbackSubmit} className="flex flex-col space-y-5">
             <input type="text" placeholder="Enter Your Name" value={feedbackName} onChange={(e) => setFeedbackName(e.target.value)} required className="w-full p-4 rounded-xl bg-gray-900 text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-500 transition" />
             <textarea placeholder="Your Feedback" rows="4" value={feedbackMessage} onChange={(e) => setFeedbackMessage(e.target.value)} required className="w-full p-4 rounded-xl bg-gray-900 text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-500 transition resize-none" />
 
             <div>
-              <input type="file" accept="image/png, image/jpeg, image/jpg" id="fileInput" onChange={handleImageChange} className="hidden" />
-              <button type="button" onClick={() => document.getElementById("fileInput").click()} className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-pink-600 to-purple-500 text-white font-sans font-semibold tracking-wide uppercase py-3 px-4 rounded-xl hover:scale-105 transition transform shadow-md">
+              <input type="file" accept="image/*" id="fileInput" onChange={handleImageChange} className="hidden" />
+              <button type="button" onClick={() => document.getElementById("fileInput").click()} className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-pink-600 to-purple-500 text-white font-semibold py-3 rounded-xl hover:scale-105 transition transform shadow-md">
                 <FiUpload className="text-lg" />
                 Choose Profile Photo
               </button>
@@ -153,12 +156,12 @@ const Contact = () => {
             </button>
           </form>
 
-          <div className="mt-8 max-h-64 overflow-y-auto pr-2 scroll-smooth scrollbar-thin scrollbar-thumb-gradient scrollbar-track-transparent rounded-2xl bg-black/30 backdrop-blur-md shadow-inner p-2 space-y-4">
+          <div className="mt-8 max-h-64 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gradient scrollbar-track-transparent rounded-2xl bg-black/30 backdrop-blur-md shadow-inner p-2 space-y-4">
             {feedbacks.length === 0 ? (
               <p className="text-gray-400 text-center">No feedback yet. Be the first!</p>
             ) : (
               feedbacks.map((fb) => (
-                <div key={fb.id} className="flex items-start space-x-4 bg-gray-900/70 p-4 rounded-xl border border-gray-700 hover:border-purple-500 hover:shadow-lg hover:shadow-purple-500/30 transition transform hover:scale-[1.02] animate-fadeInUp">
+                <div key={fb.id} className="flex items-start space-x-4 bg-gray-900/70 p-4 rounded-xl border border-gray-700 hover:border-purple-500 hover:shadow-lg transition transform hover:scale-[1.02]">
                   {fb.image_url ? (
                     <img src={fb.image_url} alt={fb.name} className="w-12 h-12 rounded-full object-cover border-2 border-purple-500 shadow-md" />
                   ) : (
@@ -178,7 +181,7 @@ const Contact = () => {
       {/* Popups */}
       {isSent && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
-          <div className="bg-purple-900 text-white p-8 rounded-2xl shadow-2xl animate-scaleUp">
+          <div className="bg-purple-900 text-white p-8 rounded-2xl shadow-2xl">
             <h3 className="text-2xl font-bold mb-2">Message Sent!</h3>
             <p>Your email has been successfully sent. I’ll get back to you soon. 😊</p>
           </div>
@@ -187,7 +190,7 @@ const Contact = () => {
 
       {isError && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
-          <div className="bg-red-700 text-white p-8 rounded-2xl shadow-2xl animate-scaleUp">
+          <div className="bg-red-700 text-white p-8 rounded-2xl shadow-2xl">
             <h3 className="text-2xl font-bold mb-2">Oops!</h3>
             <p>Failed to send your message. Please try again later.</p>
           </div>
@@ -195,12 +198,9 @@ const Contact = () => {
       )}
 
       <style jsx>{`
-        @keyframes fadeInUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
         .animate-fadeInUp { animation: fadeInUp 0.6s forwards; }
         .delay-100 { animation-delay: 0.1s; }
-
-        @keyframes scaleUp { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-        .animate-scaleUp { animation: scaleUp 0.3s ease-out forwards; }
+        @keyframes fadeInUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
 
         .scrollbar-thin::-webkit-scrollbar { width: 6px; }
         .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
