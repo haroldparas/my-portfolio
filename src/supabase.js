@@ -14,4 +14,5 @@ export const getPublicPortfolioImageUrl = (fileName) =>
 
 // For feedback images
 export const getPublicFeedbackImageUrl = (fileName) =>
-  `${supabaseUrl}/storage/v1/object/public/feedback-images/${fileName}`;
+  `${supabaseUrl}/storage/v1/object/public/portfolio-assets/${fileName}`;
+
