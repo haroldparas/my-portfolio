@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 import logo from "../../assets/hplogo.png"; // adjust path based on folder
 
-
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -26,15 +25,18 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full z-50 px-6 md:px-12 lg:px-20 py-4 bg-transparent backdrop-blur-md transition duration-300">
+      <nav className="fixed top-0 left-0 w-full z-50 px-4 sm:px-6 md:px-12 lg:px-20 py-2 sm:py-3 md:py-4 bg-transparent backdrop-blur-md transition duration-300">
         <div className="flex justify-between items-center">
-          {/* Logo + Name */}
+          {/* Logo */}
           <div
             className="flex items-center space-x-2 text-white font-semibold text-lg cursor-pointer"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
-            <img src={logo} alt="logo" className="w-12 h-12 object-contain " />
-          
+            <img
+              src={logo}
+              alt="logo"
+              className="w-8 h-8 sm:w-9 sm:h-9 md:w-9 md:h-9 object-contain"
+            />
           </div>
 
           {/* Desktop Menu */}
@@ -76,7 +78,7 @@ const Navbar = () => {
             <button
               key={item.id}
               onClick={() => handleMenuItemClick(item.id)}
-              className="text-3xl sm:text-4xl font-semibold text-gray-300 hover:text-[#8245ec] transition duration-300 transform hover:scale-110"
+              className="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-300 hover:text-[#8245ec] transition duration-300 transform hover:scale-110"
               style={{ transitionDelay: `${index * 100}ms` }}
             >
               {item.label}
