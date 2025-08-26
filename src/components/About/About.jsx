@@ -44,7 +44,7 @@ const About = () => {
 
           {/* About Paragraph */}
           <p className="text-base sm:text-lg md:text-lg text-gray-400 mb-6 mt-4 leading-relaxed">
-            an aspiring Full Stack Developer and a graduate of Tarlac State University. 
+            an aspiring Full Stack Developer and a Bachelor of Science In Computer Science graduate from Tarlac State University. 
             I’m currently working as an IT Staff at Royce Hotel and Casino. 
             I have a solid foundation in both front-end and back-end development, 
             and I’m passionate about creating efficient, user-friendly web applications.
