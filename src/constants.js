@@ -75,7 +75,7 @@ export const projects = [
     description:
       "Developed an automated parking system using YOLOv3 for real-time license plate detection and recognition, Implemented entry/exit monitoring with CCTV, a custom PH license plate dataset, and a web-based interface (Flask, Python, HTML/CSS, PHP) integrated with MySQL for vehicle and system management.",
     image: getProjectImageUrl("parking.png"),
-    tags: ["HTML","CSS", "PHP", "Python", "Flask"],
+    tags: ["HTML","CSS", "PHP", "Python", "Flask", "MySql"],
     github: "https://github.com/haroldparas/Campus-Parking-Management-System",
     webapp: "",
   },
@@ -93,7 +93,7 @@ export const projects = [
     id: 2,
     title: "ReactJs Portfolio",
     description:
-      "A modern and responsive portfolio website built with React and Vite, styled using Tailwind CSS. Features include smooth animations with Framer Motion, typing effects, interactive toast notifications via React-Toastify, and EmailJS integration for seamless contact form functionality. Designed with clean UI, responsive layouts, and optimized performance to showcase projects and skills",
+      "A modern and responsive portfolio website built with React and Vite, styled using Tailwind CSS. It features smooth animations with Framer Motion, typing effects, interactive toast notifications via React-Toastify, and EmailJS integration for seamless contact form functionality. The website is designed with a clean UI, responsive layouts, optimized performance, and integrated Supabase for dynamic content and feedback management, making it an effective platform to showcase projects and skills.",
     image: getProjectImageUrl("react_port.png"),
     tags: ["HTML", "Tailwind/CSS", "Javascript", "ReactJs", "ViteJs"],
     github: "https://github.com/haroldparas/my-portfolio",
