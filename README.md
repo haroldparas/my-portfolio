@@ -11,6 +11,7 @@ A **modern and responsive portfolio website** built with **React and Vite**, sty
 - 🔔 **React-Toastify Notifications** for form interaction feedback  
 - 📩 **EmailJS Integration** for direct email functionality in the contact form  
 - 🖼️ **Supabase Integration**: Project images are stored in a **Supabase public bucket** and fetched dynamically
+- 🗄️ Supabase SQL Editor + Functional Database – used to handle and store feedback form submissions
 - 🖱️ **Custom Mouse Cursor** – adds a unique interactive experience for users  
 - 📱 **Fully Responsive** – works seamlessly on desktop, tablet, and mobile  
 
