@@ -116,8 +116,8 @@ export const projects = [
     description: "DoneRight is a minimalist to-do list app that helps users stay organized with a clean retro-inspired design. It allows you to add, complete, and delete tasks, as well as clear all tasks with a single click. The app features smooth animations, a scrollable task list, and works seamlessly on both desktop and mobile. Built with HTML, CSS, and JavaScript, DoneRight combines simplicity and functionality in one neat package.",
     image: getProjectImageUrl("doneright.png"), // no image
     tags: ["HTML", "CSS", "Javascript"],
-    github: "",
-    webapp: "",
+    github: "https://github.com/haroldparas/doneright",
+    webapp: "https://haroldparas.github.io/doneright/",
   },
   {
     id: 5,
