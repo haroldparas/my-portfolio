@@ -101,13 +101,13 @@ export const projects = [
   },
   {
     id: 3,
-    title: "Simple Calcu",
+    title: "LumiCalc",
     description:
-      "Working digital calculator with a clean UI and all basic math operations, styled with CSS for the modern look and powered by JavaScript for interactivity",
+      "LumiCalc is a stylish and interactive web calculator built with HTML, CSS, and JavaScript. Designed with a glassmorphic interface and neon accents, it combines functionality with a futuristic aesthetic.",
     image: getProjectImageUrl("calc.png"),
     tags: ["HTML", "CSS", "Javascript"],
-    github: "https://github.com/haroldparas/Simple-Calculator-made-by-Javascript",
-    webapp: "https://haroldparas.github.io/Simple-Calculator-made-by-Javascript/",
+    github: "https://github.com/haroldparas/LumiCalc",
+    webapp: "https://haroldparas.github.io/LumiCalc/",
     
   },
   {
