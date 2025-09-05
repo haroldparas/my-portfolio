@@ -104,7 +104,7 @@ export const projects = [
     title: "LumiCalc",
     description:
       "LumiCalc is a stylish and interactive web calculator built with HTML, CSS, and JavaScript. Designed with a glassmorphic interface and neon accents, it combines functionality with a futuristic aesthetic.",
-    image: getProjectImageUrl("calc.png"),
+    image: getProjectImageUrl("lumicalc.png"),
     tags: ["HTML", "CSS", "Javascript"],
     github: "https://github.com/haroldparas/LumiCalc",
     webapp: "https://haroldparas.github.io/LumiCalc/",
